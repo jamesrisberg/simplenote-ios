@@ -388,6 +388,17 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)s {
     [searchBar endEditing:YES];
+    
+    for (int i = 0; i < self.fetchedResultsController.fetchedObjects.count; ++i) {
+        if (self.searchText == ((Note *)self.fetchedResultsController.fetchedObjects[i]).titlePreview) {
+            Note *note = (Note *)self.fetchedResultsController.fetchedObjects[i];
+            NSIndexPath *path = [NSIndexPath indexPathForItem:i inSection:0];
+            
+            [self openNote:note fromIndexPath:path animated:YES];
+        }
+    }
+    
+    [self openNote:nil fromIndexPath:nil animated:YES];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)s {

@@ -213,8 +213,14 @@ CGFloat const SPMultitaskingCompactOneThirdWidth = 320.0f;
         [_noteEditorTextView processChecklists];
     }
     
-    if (!(_noteEditorTextView.text.length > 0) && !bActionSheetVisible)
+    if (!(_noteEditorTextView.text.length > 0) && !bActionSheetVisible) {
+        if (bSearching) {
+            _currentNote.content = [NSString stringWithFormat:@"%@\n", _searchString];;
+            [self updateNote:_currentNote];
+        }
+        
         [_noteEditorTextView becomeFirstResponder];
+    }
 
     if (_tagView.alpha < 1.0) {
         [UIView animateWithDuration:0.3
